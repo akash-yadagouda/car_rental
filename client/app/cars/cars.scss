@@ -1,0 +1,420 @@
+/* angular-material styles
+------------------------------------------------------------*/
+.list-user-panel {
+	@include flex;
+	@include justify-space-between;
+
+	.user-panel-search {
+		width: 75%;
+	}
+}
+
+.daterangepicker {
+	color: #121212;
+}
+
+.md-button {
+	border-radius: 0px;
+}
+
+md-menu-content {
+	max-height: none !important;
+	min-height: 400px;
+
+	.md-button > div {
+		color: $darkGray;
+	}
+}
+
+.md-toolbar-tools {
+	background-color: $baseGreen !important;
+	color: $lightGray !important;
+	text-transform: uppercase;
+}
+
+.payment-container {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 16px;
+
+	.payment-details {
+		margin: 20px 0px 20px 0px;
+
+		.payment-row {
+			@include flex;
+			@include justify-space-between;
+			min-width: 300px;
+
+			.value-row {
+				padding-left: 40px;
+			}
+		}
+
+		.details-label {
+			color: $baseGreen;
+		}
+	}
+}
+
+/* app styles
+------------------------------------------------------------*/
+.basic-button {
+    font-family: 'Open Sans', sans-serif !important;
+    color: #1dcb8b !important;
+    border: 1px solid #1dcb8b !important;
+	transition: .25s all ease !important;
+	border-radius: 0px !important;
+
+	&:hover {
+		color: $baseGrayBlue !important;
+		background-color: $baseGreen !important;
+	}
+
+	&.payment-button {
+
+		&:hover {
+			color: $lightGray !important;
+		}
+	}
+
+	&.cancel-button,
+	&.cancel-button:focus {
+		border: 1px solid $mediumGray !important;
+		color: $mediumGray !important;
+		background-color: white;
+
+		&:hover {
+			color: $lightGray !important;
+			background-color: $mediumGray !important;
+		}
+	}
+}
+
+.account-container {
+	width: 100%;
+
+	.account-input {
+		margin: 20px;
+		width: 100%;
+		border-bottom: 2px solid $lightGray !important;
+		color: $lightGray;
+		font-size: 16px;
+		box-shadow: none !important;
+
+		&:active,
+		&:focus {
+			border-bottom: 2px solid $baseGreen !important;
+			box-shadow: none;
+		}
+
+		&.md-input-focused {
+			
+			label {
+				color: $baseGreen !important;
+			}
+		}
+	}
+	
+	label {
+		margin: 0px 20px;
+		font-size: 16px;
+		color: $lightGray !important;
+	}
+}
+
+.login-monit {
+	@include flex;
+	@include align-center;
+	@include justify-center;
+	margin: 20px;
+	padding: 10px;
+	background: $baseRed;
+}
+
+.discount-monit {
+	@include flex;
+	@include align-center;
+	@include justify-center;
+	margin: 20px;
+	padding: 10px;
+	background: $lightGray;
+	color: $darkGray;
+
+	.discount-info {
+		color: $baseGreen;
+	}
+
+	.discount-info-warn {
+		color: $baseRed;
+	}
+}
+
+.car-card {
+	font-family: 'Open Sans', sans-serif;
+	min-height: 300px;
+	color: $baseGrayBlue;
+	background-color: $lightGray;
+	margin: 20px;
+	box-shadow: 0px 3px $darkGray;
+	position: relative;
+	overflow: hidden;
+
+	&.unavailable {
+		opacity: .5;
+	}
+
+	.car-card-header {
+		@include flex;
+		@include align-center;
+		@include justify-center;
+		@include direction-column;
+		height: 80px;
+		background-color: $baseYellow;
+
+		.car-card-header-brand {
+			font-size: 24px;
+			text-transform: uppercase;
+		}
+
+		.car-card-header-model {
+			font-size: 18px;
+		}
+	}
+
+	.car-card-price {
+		@include flex;
+		@include align-center;
+		@include justify-center;
+		height: 50px;
+		background-color: $gray;
+
+		.car-card-price-value {
+			color: $darkGray;
+			font-size: 26px;
+		}
+	}
+
+	.car-card-body {
+
+		.car-details {
+			padding: 10px;
+			margin: 0;
+			list-style-type: none;
+
+			.car-details-item:not(:last-child) {
+				border-bottom: 1px solid $gray;
+			}
+
+			.car-details-item {
+				@include flex;
+				@include justify-space-between;
+				padding: 10px 0px 10px 0px;
+				margin: 0px;
+
+				.car-details-item-label {
+					color: $darkGray;
+					font-weight: bold;
+				}
+			}
+		}
+	}
+
+	.car-card-ui {
+		@include flex;
+		@include align-center;
+		color: $lightGray;
+		height: 50px;
+		cursor: pointer;
+
+		.car-card-ui-container {
+			@include flex;
+			@include align-center;
+
+			.car-card-availability-label {
+				margin: 20px;
+			}
+		}
+
+		&:focus {
+			outline: none;
+		}
+		
+		&.disabled {
+			background-color: $gray !important;
+			color: $darkGray;
+			cursor: auto;
+		}
+
+		&.available {
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			font-size: 18px;
+			text-transform: uppercase;
+			background-color: $baseGreen;
+		}
+
+		&.unavailable {
+			font-size: 18px;
+			text-transform: uppercase;
+			background-color: $baseRed;
+		}
+
+		.car-card-availability-icon {
+			margin: 15px;
+			font-size: 24px;
+		}
+	}
+
+	.car-card-back {
+		position: absolute;
+		bottom: -100%;
+		height: 100%;
+		width: 100%;
+		background-color: $lightGray;
+
+		.back-button {
+			@include flex;
+			@include align-center;
+			background-color: $baseYellow;
+			color: $darkGray;
+			font-size: 20px;
+			height: 40px;
+			cursor: pointer;
+
+			&:focus {
+				outline: none;
+			}
+
+			.back-button-container {
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: -ms-flexbox;
+				display: flex;
+				margin: 15px;
+			}
+		}
+
+		.back-details {
+			font-size: 16px;
+
+			.date-picker-container {
+				border-bottom: 1px solid $gray;
+				text-align: center;
+				width: 100%;
+				padding: 7px 0px 7px 0px;
+
+				.date-picker {
+					border: 0;
+					padding: 5px;
+					margin: 5px 0px 6px 0px;
+					border-bottom: 1px solid $lightGray;
+					color: $darkGray;
+					text-align: center;
+					background: $lightGray;
+					border: 0;
+				    width: 100%;
+
+					&:focus {
+						outline: none;
+						border-bottom: 2px solid $baseGreen;
+					}
+				}
+			}
+			
+
+			.days-container {
+				@include flex;
+				@include justify-center;
+				@include align-baseline;
+				border-bottom: 1px solid $gray;
+				width: 100%;
+				padding: 10px;
+
+				.days-number {
+					margin-right: 5px;
+					font-size: 26px;
+					color: $baseGreen;
+				}
+			}
+
+			.total-amount-container {
+				@include flex;
+				@include justify-center;
+				@include align-baseline;
+				border-bottom: 1px solid $gray;
+				width: 100%;
+				padding: 10px;
+
+				.total-amount-value {
+					margin-right: 5px;
+					font-size: 26px;
+					color: $baseGreen;
+				}
+			}
+
+			.discount-container {
+				@include flex;
+				@include justify-center;
+				@include align-baseline;
+				border-bottom: 1px solid $gray;
+				width: 100%;
+				padding: 10px;
+
+				.discount-value {
+					margin-right: 5px;
+					font-size: 26px;
+					color: $baseGreen;
+				}
+			}
+
+			.rent-button {
+				@include flex;
+				@include align-center;
+				font-size: 18px;
+				background: $baseGreen;
+				color: $lightGray;
+				width: 100%;
+				margin: 0px;
+				padding: 0px;
+				border-radius: 0px;
+				height: 50px;
+				position: absolute;
+				bottom: 0;
+
+				.rent-button-icon {
+				    background-color: $darkGray;
+				    color: #f1f1f1;
+				    float: left;
+				    height: 50px;
+				    width: 50px;
+				    font-size: 24px;
+				    display: flex;
+				    align-items: center;
+				    justify-content: center;
+				}
+
+				.rent-button-label {
+					margin: 0 auto;
+				}
+
+				.md-ripple-container {
+					border-radius: 0px;
+				}
+			}
+		}
+	}
+
+}
+
+/*@media(max-width: 768px){
+	.car-card-ui {
+
+		.car-card-ui-container {
+
+			.car-card.availability-label {
+
+			}
+		}
+	}
+}*/

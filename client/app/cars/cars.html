@@ -1,0 +1,166 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+	<div class="row">
+
+		<!-- car list user panel -->
+		<div class="col-md-11 col-sm-12 col-xs-12 list-user-panel">
+			<!-- searching panel -->
+			<md-input-container class="md-block account-container user-panel-search">
+	            <label>Search for keywords</label>
+	            <input type="text" class="form-control account-input" ng-model="keywords">
+	    	</md-input-container>
+
+			<!-- sorting panel -->
+			<md-menu>
+				<md-button class="basic-button" ng-click="openSortingMenu($mdOpenMenu, $event)">
+					Sorting options
+				</md-button>
+				<md-menu-content width="4">
+					<md-menu-item>
+						<md-button ng-click="sortingOrder('isAvailable')">
+							<div>Availability</div>
+						</md-button>
+					</md-menu-item>
+					<md-menu-item>
+						<md-button ng-click="sortingOrder('price')">
+							<div>Price</div>
+						</md-button>
+					</md-menu-item>
+					<md-menu-item>
+						<md-button ng-click="sortingOrder('brand')">
+							<div>Brand</div>
+						</md-button>
+					</md-menu-item>
+					<md-menu-item>
+						<md-button ng-click="sortingOrder('model')">
+							<div>Model</div>
+						</md-button>
+					</md-menu-item>
+					<md-menu-item>
+						<md-button ng-click="sortingOrder('bodyStyle')">
+							<div>Body style</div>
+						</md-button>
+					</md-menu-item>
+					<md-menu-item>
+						<md-button ng-click="sortingOrder('class')">
+							<div>Class</div>
+						</md-button>
+					</md-menu-item>
+					<md-menu-item>
+						<md-button ng-click="sortingOrder('fuelOptions')">
+							<div>Fuel options</div>
+						</md-button>
+					</md-menu-item>
+					<md-menu-item>
+					<md-button ng-click="sortingOrder('seating')">
+							<div>Seating</div>
+						</md-button>
+					</md-menu-item>
+				</md-menu-content>
+			</md-menu>
+		</div>
+
+		<!-- login monit -->
+		<div class="col-md-12 col-sm-12 col-sx-12" ng-if="!isLoggedIn">
+			<div class="login-monit">
+				Warning! You must be logged in to rent available cars. 
+			</div>
+		</div>
+
+		<!-- discount info -->
+		<div class="col-md-12 col-sm-12 col-sx-12" ng-if="isLoggedIn">
+			<div class="discount-monit">
+				<span>You get&nbsp;</span>
+				<span class="discount-info">10%&nbsp;</span>
+				<span>discount if your rent time is 7 days or more, or&nbsp;</span>
+				<span class="discount-info">20%&nbsp;</span>
+				<span>discount if you've rented 3 cars in the last month. The discounts <span class="discount-info-warn">don't</span> stack up.</span>
+			</div>
+		</div>
+
+		<!-- car list -->
+		<div ng-repeat="car in cars | orderBy:sortingAttribute:sortingReverse | filter:keywords" class="col-md-3 col-sm-12 col-xs-12">
+			<div class="car-card" ng-class="{unavailable: !car.isAvailable}">
+				<!--car header-->
+				<div class="car-card-header">
+					<div class="car-card-header-brand">{{ car.brand }}</div>
+					<div class="car-card-header-model">{{ car.model }}</div>
+				</div>
+
+				<!--car price-->
+				<div class="car-card-price">
+					<div class="car-card-price-value">${{ car.price }}</div>
+				</div>
+
+				<!--car details-->
+				<div class="car-card-body">
+					<ul class="car-details">
+						<li class="car-details-item">
+							<span class="car-details-item-label">Body style:&nbsp;</span>
+							<span>{{ car.bodyStyle }}</span>
+						</li>
+						<li class="car-details-item">
+							<span class="car-details-item-label">Class:&nbsp;</span>
+							<span>{{ car.class }}</span></li>
+						<li class="car-details-item">
+							<span class="car-details-item-label">Fuel options:&nbsp;</span>
+							<span>{{ car.fuelOptions }}</span>
+						</li>
+						<li class="car-details-item">
+							<span class="car-details-item-label">Seating:&nbsp;</span>
+							<span>{{ car.seating }}</span>
+						</li>
+					</ul>
+				</div>
+
+				<!--car ui panel-->
+				<div class="car-card-ui" ng-class="{available: car.isAvailable, unavailable: !car.isAvailable, disabled: !isLoggedIn}" ng-mouseenter="liftCard($event)" ng-mouseleave="lowerCard($event)" ng-click="showDetails($event)">
+					<div class="car-card-ui-container" ng-if="car.isAvailable">
+						<span class="car-card-availability-icon"><i class="glyphicon glyphicon-plus"></i></span>
+						<span class="car-card-availability-label">Available</span>
+					</div>
+					<div class="car-card-ui-container" ng-if="!car.isAvailable">
+						<span class="car-card-availability-icon"><i class="glyphicon glyphicon-remove"></i></span>
+						<span class="car-card-availability-label">Not Available</span>
+					</div>
+				</div>
+
+				<!--car card back w/ renting details-->
+				<div class="car-card-back">
+					<div class="back-button" ng-click="hideDetails($event)">
+						<div class="back-button-container">
+							<i class="glyphicon glyphicon-remove"></i>
+						</div>
+					</div>
+					<div class="back-details">
+						<div class="date-picker-container">
+							<input date-range-picker class="date-picker" type="text" ng-model="datePicker.dateRange" placeholder="Choose time range">
+						</div>
+						<div class="days-container">
+							<span class="days-number">{{datePicker.days}}</span>
+							<span class="days-label">days</span>
+						</div>
+						<div class="total-amount-container">
+							<span class="total-amount-value">
+								<span ng-if="totalValue === 0">--</span>
+								<span ng-if="totalValue !== 0">${{totalValue}}</span>
+							</span>
+							<span class="total-amount-label">total</span>
+						</div>
+						<div class="discount-container" ng-if="discount !== 0">
+							<span class="discount-value">*{{discount*100}}%</span>
+							<span>&nbsp;discount</span>
+						</div>
+						<md-button class="rent-button" ng-click="rentCar($event)" ng-disabled="datePicker.days == 0">
+							<div class="rent-button-icon"><i class="fa fa-usd"></i></div>
+							<span class="rent-button-label">Rent</span>
+						</md-button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div ng-include="'components/footer/footer.html'"></div>
